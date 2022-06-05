@@ -1,19 +1,20 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require('sequelize');
 
-const messageSchema = new mongoose.Schema(
-    {
-        title: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        content: {
-            type: String,
-            required: true,
-        }
+const sequelize = require('../db/sequelize');
+
+const Message = sequelize.define('message', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    title: {
+        type: DataTypes.STRING
+    },
+    content: {
+        type: DataTypes.STRING
     }
-);
+});
 
-
-const Message = mongoose.model("Message", messageSchema);
 module.exports = Message;

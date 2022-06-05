@@ -9,8 +9,8 @@ const router = new express.Router();
 router.get("/messages/getall", async (req, res) => {
 
     try {
-        const allCMessages = await Message.find({});
-        if (allCMessages) res.send(allCMessages);
+        const messages = await Message.findAll();
+        if (messages) res.send(messages);
         else res.send([]);
     }
     catch (err) {
@@ -21,13 +21,8 @@ router.get("/messages/getall", async (req, res) => {
 
 
 router.post("/messages/new", async (req, res) => {
-
-    const message = new Message({
-        ...req.body,
-    });
-
     try {
-        await message.save();
+        const message = await Message.create(req.body);
         res.send(message);
     } catch (err) {
         console.log(err)
